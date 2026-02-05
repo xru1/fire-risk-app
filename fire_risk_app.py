@@ -1,3 +1,28 @@
+# 强制安装依赖
+import subprocess
+import sys
+import importlib
+
+# 需要安装的包
+required_packages = [
+    'streamlit==1.30.0',
+    'pandas==2.0.0', 
+    'numpy==1.24.0',
+    'plotly==5.20.0'
+]
+
+# 检查并安装
+for package in required_packages:
+    try:
+        package_name = package.split('==')[0]
+        importlib.import_module(package_name)
+        print(f"✅ {package_name} 已安装")
+    except ImportError:
+        print(f"📦 正在安装 {package}...")
+        subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+        print(f"✅ {package} 安装完成")
+
+print("所有依赖检查完成！")
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -700,4 +725,5 @@ st.markdown("""
 <p>🔥 老旧楼宇火灾风险检测与整改策略分析系统 | 基于科学评估模型与优化算法</p>
 <p>⚠️ 本系统评估结果仅供参考，实际整改需结合现场具体情况和专业意见</p>
 </div>
+
 """, unsafe_allow_html=True)
